@@ -20,18 +20,15 @@ import Prelude
 data Nat = Zero | Succ Nat
 
 instance Show Nat where
-
     show Zero = "O"
     show (Succ x) = 'S' : show x
 
 instance Eq Nat where
-
     (==) Zero Zero = True
     (==) (Succ u) (Succ v) = u == v
     (==) _ _ = False
 
 instance Ord Nat where
-
     (<=) Zero _ = True
     (<=) _ Zero = False
     (<=) (Succ u) (Succ v) =  u <= v
@@ -129,7 +126,6 @@ fromNat Zero = 0
 fromNat (Succ x) = 1 + (fromNat x)
 
 instance Num Nat where
-
     (+) = (<+>)
     (*) = (<*>)
     (-) = (<->)
