@@ -109,11 +109,11 @@ inits xs = inits (init xs) <: xs
 
 any :: (a -> Bool) -> [a] -> Bool
 any _ [] = False
-any f (x : xs) = f x || any f xs
+any p (x : xs) = p x || any p xs
 
 all :: (a -> Bool) -> [a] -> Bool
 all _ [] = True
-all f (x : xs) = f x && all f xs
+all p (x : xs) = p x && all p xs
 
 and :: [Bool] -> Bool
 and [] = True
@@ -143,9 +143,9 @@ elem' x (y : ys) = x == y || elem' x ys
 
 filter :: (a -> Bool) -> [a] -> [a]
 filter _ [] = []
-filter f (x : xs)
-    | f x = x : filter f xs
-    | otherwise = filter f xs
+filter p (x : xs)
+    | p x = x : filter p xs
+    | otherwise = filter p xs
 
 map :: (a -> b) -> [a] -> [b]
 map _ [] = []
