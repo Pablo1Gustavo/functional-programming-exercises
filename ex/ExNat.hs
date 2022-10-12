@@ -21,23 +21,23 @@ data Nat = Zero | Succ Nat
 
 instance Show Nat where
     show Zero = "O"
-    show (Succ x) = 'S' : show x
+    show (Succ n) = 'S' : show n
 
 instance Eq Nat where
     (==) Zero Zero = True
-    (==) (Succ u) (Succ v) = u == v
+    (==) (Succ n) (Succ m) = n == m
     (==) _ _ = False
 
 instance Ord Nat where
     (<=) Zero _ = True
     (<=) _ Zero = False
-    (<=) (Succ u) (Succ v) =  u <= v
+    (<=) (Succ n) (Succ m) =  n <= m
 
-    min (Succ u) (Succ v) = Succ (min u v)
+    min (Succ n) (Succ m) = Succ (min n m)
     min _ _ = Zero
 
-    max (Succ u) (Succ v) = Succ (max u v)
-    max _ v = v
+    max (Succ n) (Succ m) = Succ (max n m)
+    max _ m = m
 
 isZero :: Nat -> Bool
 isZero Zero = True
@@ -46,65 +46,65 @@ isZero _ = False
 -- pred is the predecessor but we define zero's to be zero
 pred :: Nat -> Nat
 pred Zero = Zero
-pred (Succ x) = x
+pred (Succ n) = n
 
 even :: Nat -> Bool
 even Zero = True
-even (Succ x) = not (even x)
+even (Succ n) = not (even n)
 
 odd :: Nat -> Bool
-odd x = not (even x)
+odd n = not (even n)
 
 -- addition
 (<+>) :: Nat -> Nat -> Nat
-(<+>) v Zero = v
-(<+>) u (Succ v) = Succ (u <+> v)
+(<+>) m Zero = m
+(<+>) n (Succ m) = Succ (n <+> m)
 
 -- This is called the dotminus or monus operator
 -- It behaves like subtraction, except that it returns 0
 -- when "normal" subtraction would return a negative number.
 (<->) :: Nat -> Nat -> Nat
 (<->) Zero _ = Zero
-(<->) v Zero = v
-(<->) u (Succ v) = pred (u <-> v)
+(<->) m Zero = m
+(<->) n (Succ m) = pred (n <-> m)
 
 -- multiplication
 (<*>) :: Nat -> Nat -> Nat
-(<*>) v Zero = Zero
-(<*>) u (Succ v) = u <+> (u <*> v)
+(<*>) m Zero = Zero
+(<*>) n (Succ m) = n <+> (n <*> m)
 
 -- exponentiation
 (<^>) :: Nat -> Nat -> Nat
 (<^>) _ Zero = Succ Zero
 (<^>) Zero _ = Zero
-(<^>) u (Succ v) = u <*> (u <^> v)
+(<^>) n (Succ m) = n <*> (n <^> m)
 
 -- quotient
 (</>) :: Nat -> Nat -> Nat
-(</>) u v 
-    | u < v = Zero
-    | otherwise = Succ ((u <-> v) </> v)
+(</>) n m 
+    | n < m = Zero
+    | otherwise = Succ ((n <-> m) </> m)
 
 -- remainder
 (<%>) :: Nat -> Nat -> Nat
-(<%>) u v = u <-> ((u </> v) <*> v)
+(<%>) n m = n <-> ((n </> m) <*> m)
 
 -- divides
 (<|>) :: Nat -> Nat -> Bool
-(<|>) u v = (u <%> v) == Zero
+(<|>) n m = (n <%> m) == Zero
 
 divides = (<|>)
 
 absDiff :: Nat -> Nat -> Nat
-absDiff u v
-    | v <= u = u <-> v
-    | otherwise = v <-> u
+absDiff n m
+    | m <= n = n <-> m
+    | otherwise = m <-> n
 
 (|-|) = absDiff
 
 factorial :: Nat -> Nat
 factorial Zero = Succ Zero
-factorial (Succ x) = (Succ x) <*> (factorial x)
+factorial (Succ n) = (Succ n) <*> (factorial n)
 
 -- signum of a number (-1, 0, or 1)
 sg :: Nat -> Nat
@@ -113,17 +113,17 @@ sg _ = Succ Zero
 
 -- lo b a is the floor of the logarithm base b of a
 lo :: Nat -> Nat -> Nat
-lo u v
-    | u < v = Zero
-    | otherwise = Succ (lo (u </> v) v)
+lo n m
+    | n < m = Zero
+    | otherwise = Succ (lo (n </> m) m)
 
 toNat :: Integral a => a -> Nat
 toNat 0 = Zero
-toNat x = Succ (toNat (x - 1))
+toNat n = Succ (toNat (n - 1))
 
 fromNat :: Integral a => Nat -> a
 fromNat Zero = 0
-fromNat (Succ x) = 1 + (fromNat x)
+fromNat (Succ n) = 1 + (fromNat n)
 
 instance Num Nat where
     (+) = (<+>)
@@ -131,8 +131,8 @@ instance Num Nat where
     (-) = (<->)
     abs n = n
     signum = sg
-    fromInteger x
-        | x < 0     = error "Unable to convert negative number to Nat"
-        | x == 0    = Zero
-        | otherwise = Succ (fromInteger (x - 1))
+    fromInteger n
+        | n < 0     = error "Unable to convert negative number to Nat"
+        | n == 0    = Zero
+        | otherwise = Succ (fromInteger (n - 1))
         
