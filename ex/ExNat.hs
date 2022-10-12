@@ -76,7 +76,6 @@ odd n = not (even n)
 -- exponentiation
 (<^>) :: Nat -> Nat -> Nat
 (<^>) _ Zero = Succ Zero
-(<^>) Zero _ = Zero
 (<^>) n (Succ m) = n <*> (n <^> m)
 
 -- quotient
