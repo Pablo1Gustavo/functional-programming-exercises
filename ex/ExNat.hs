@@ -64,7 +64,6 @@ odd n = not (even n)
 -- It behaves like subtraction, except that it returns 0
 -- when "normal" subtraction would return a negative number.
 (<->) :: Nat -> Nat -> Nat
-(<->) Zero _ = Zero
 (<->) m Zero = m
 (<->) n (Succ m) = pred (n <-> m)
 
