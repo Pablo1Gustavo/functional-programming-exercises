@@ -16,7 +16,7 @@ isNothing Nothing = True
 isNothing _ = False
 
 fromJust :: Maybe a -> a
-fromJust Nothing = error "Can not get value from Nothing"
+fromJust Nothing = error "Cannot get value from Nothing"
 fromJust (Just x) = x
 
 catMaybes :: [Maybe a] -> [a]
