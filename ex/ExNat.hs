@@ -79,6 +79,7 @@ odd n = not (even n)
 
 -- quotient
 (</>) :: Nat -> Nat -> Nat
+(</>) _ Zero = error "Cannot divide by zero."
 (</>) n m 
     | n < m = Zero
     | otherwise = Succ ((n <-> m) </> m)
@@ -130,7 +131,7 @@ instance Num Nat where
     abs n = n
     signum = sg
     fromInteger n
-        | n < 0     = error "Unable to convert negative number to Nat"
+        | n < 0     = error "Cannot convert negative number to Nat."
         | n == 0    = Zero
         | otherwise = Succ (fromInteger (n - 1))
         
