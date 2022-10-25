@@ -160,7 +160,7 @@ cycle :: [a] -> [a]
 cycle xs = xs ++ cycle xs
 
 repeat :: a -> [a]
-repeat x = [x] ++ repeat x
+repeat x = x : repeat x
 
 replicate :: Int -> a -> [a]
 replicate n x 
