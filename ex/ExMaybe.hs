@@ -17,17 +17,14 @@ isNothing _ = False
 
 fromJust :: Maybe a -> a
 fromJust Nothing = error "Cannot get value from Nothing"
-fromJust (Just x) = x
+fromJust (Just m) = m
 
 catMaybes :: [Maybe a] -> [a]
-catMaybes [] = []
-catMaybes (x : xs)
-    | isJust x = fromJust x : catMaybes xs
-    | otherwise = catMaybes xs
+catMaybes = map fromJust . filter isJust
 
 fromMaybe :: a -> Maybe a -> a
 fromMaybe x Nothing = x
-fromMaybe _ (Just x) = x
+fromMaybe _ (Just m) = m
 
 listToMaybe :: [a] -> Maybe a
 listToMaybe [] = Nothing
