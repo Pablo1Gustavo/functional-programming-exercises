@@ -19,4 +19,4 @@ isMaybeGood p (Just x) = Just (p x)
 -- * Just a simple (yes/no)
 -- * Nothing to say (cause nobody has this property)
 isGoodFirstThat :: (a -> Bool) -> (a -> Bool) -> [a] -> Maybe Bool
-isGoodFirstThat p q = fmap p . firstThat q
+isGoodFirstThat p q = isMaybeGood p . firstThat q
