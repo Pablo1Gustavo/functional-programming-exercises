@@ -36,8 +36,9 @@ instance Ord Nat where
     min (Succ n) (Succ m) = Succ (min n m)
     min _ _ = Zero
 
+    max n Zero = n
+    max Zero m = m
     max (Succ n) (Succ m) = Succ (max n m)
-    max _ m = m
 
 isZero :: Nat -> Bool
 isZero Zero = True
