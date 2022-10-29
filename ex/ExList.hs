@@ -46,13 +46,12 @@ reverse (x : xs) = reverse xs <: x
 
 infixr 5 ++
 
--- (snoc is cons written backwards)
-snoc :: a -> [a] -> [a]
-snoc x [] = [x]
-snoc x (y : ys) = y : snoc x ys
+insert :: a -> [a] -> [a]
+insert x [] = [x]
+insert x (y : ys) = y : insert x ys
 
 (<:) :: [a] -> a -> [a]
-(<:) = flip snoc
+(<:) = flip insert
 
 -- different implementation of (++)
 (+++) :: [a] -> [a] -> [a]
