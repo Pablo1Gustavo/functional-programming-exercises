@@ -26,7 +26,7 @@ null _ = False
 
 length :: Integral i => [a] -> i
 length [] = 0
-length (_ : xs) = 1 + (length xs)
+length (_ : xs) = 1 + length xs
 
 sum :: Num a => [a] -> a
 sum [] = 0
@@ -47,8 +47,7 @@ reverse (x : xs) = reverse xs <: x
 infixr 5 ++
 
 insert :: a -> [a] -> [a]
-insert x [] = [x]
-insert x (y : ys) = y : insert x ys
+insert x ys = ys ++ [x]
 
 (<:) :: [a] -> a -> [a]
 (<:) = flip insert
@@ -66,12 +65,12 @@ maximum (x : xs) = max x (maximum xs)
 take :: Integral l => l -> [a] -> [a]
 take _ [] = []
 take 0 _ = []
-take l (x : xs) = x : take (l - 1) xs
+take n (x : xs) = x : take (l - 1) xs
 
 drop :: Integral l => l -> [a] -> [a]
 drop _ [] = []
 drop 0 xs = xs
-drop l (x : xs) = drop (l - 1) xs 
+drop n (_ : xs) = drop (l - 1) xs 
 
 takeWhile :: (a -> Bool) -> [a] -> [a]
 takeWhile _ [] = []
@@ -131,8 +130,10 @@ elem' x (y : ys) = x == y || elem' x ys
 filter :: (a -> Bool) -> [a] -> [a]
 filter _ [] = []
 filter p (x : xs)
-    | p x = x : filter p xs
-    | otherwise = filter p xs
+    | p x = x : xs'
+    | otherwise = xs'
+    where
+        xs' = filter p xs
 
 map :: (a -> b) -> [a] -> [b]
 map _ [] = []
