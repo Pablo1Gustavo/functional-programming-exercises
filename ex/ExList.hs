@@ -65,12 +65,12 @@ maximum (x : xs) = max x (maximum xs)
 take :: Integral l => l -> [a] -> [a]
 take _ [] = []
 take 0 _ = []
-take n (x : xs) = x : take (l - 1) xs
+take n (x : xs) = x : take (n - 1) xs
 
 drop :: Integral l => l -> [a] -> [a]
 drop _ [] = []
 drop 0 xs = xs
-drop n (_ : xs) = drop (l - 1) xs 
+drop n (_ : xs) = drop (n - 1) xs 
 
 takeWhile :: (a -> Bool) -> [a] -> [a]
 takeWhile _ [] = []
