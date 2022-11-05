@@ -63,16 +63,12 @@ infixl 5 +++
 minimum :: Ord a => [a] -> a
 minimum [] = error "Empty list does not have minimum"
 minimum [x] = x
-minimum (x : xs)
-    | x < (minimum xs) = x
-    | otherwise = minimum xs
+minimum (x : xs) = min x (minimum xs)
 
 maximum :: Ord a => [a] -> a
 maximum [] = error "Empty list does not have maximum"
 maximum [x] = x
-maximum (x : xs)
-    | x > (maximum xs) = x
-    | otherwise = maximum xs
+maximum (x : xs) = max x (maximum xs)
 
 take :: Integral l => l -> [a] -> [a]
 take _ [] = []
