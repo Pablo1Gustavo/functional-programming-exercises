@@ -21,7 +21,8 @@ tail [] = error "Unable to get head of an empty list"
 tail (_ : xs) = xs
 
 null :: [a] -> Bool
-null = undefined
+null [] = True
+null _ = False
 
 length :: Integral i => [a] -> i
 length [] = 0
