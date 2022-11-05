@@ -53,14 +53,6 @@ insert x (y : ys) = y : insert x ys
 (<:) :: [a] -> a -> [a]
 (<:) = flip insert
 
--- different implementation of (++)
-(+++) :: [a] -> [a] -> [a]
-xs +++ []     = xs
-xs +++ [y]    = xs <: y
-xs +++ (y : ys) = (xs +++ [y]) +++ ys
-
-infixl 5 +++
-
 minimum :: Ord a => [a] -> a
 minimum [] = error "Empty list does not have minimum"
 minimum [x] = x
