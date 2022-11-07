@@ -46,11 +46,11 @@ reverse (x : xs) = reverse xs <: x
 
 infixr 5 ++
 
-insert :: a -> [a] -> [a]
-insert x ys = ys ++ [x]
+append :: a -> [a] -> [a]
+append x ys = ys ++ [x]
 
 (<:) :: [a] -> a -> [a]
-(<:) = flip insert
+(<:) = flip append
 
 minimum :: Ord a => [a] -> a
 minimum [] = error "Empty list does not have minimum"
