@@ -160,7 +160,6 @@ replicate n x
 -- isSuffixOf
 
 zip :: [a] -> [b] -> [(a, b)]
-zip [x] [y] = [(x, y)]
 zip (x : xs) (y : ys) = (x, y) : zip xs ys
 zip _ _ = []
 
