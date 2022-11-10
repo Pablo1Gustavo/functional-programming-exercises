@@ -26,9 +26,9 @@ fromMaybe :: a -> Maybe a -> a
 fromMaybe x Nothing = x
 fromMaybe _ (Just m) = m
 
-listToMaybe :: [a] -> Maybe a
-listToMaybe [] = Nothing
-listToMaybe (x : _) = Just x
+safeHead :: [a] -> Maybe a
+safeHead [] = Nothing
+safeHead (x : _) = Just x
 
 mapMaybe :: (a -> Maybe b) -> [a] -> [b]
 mapMaybe f = map fromJust . filter isJust . map f

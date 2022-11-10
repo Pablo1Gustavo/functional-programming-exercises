@@ -8,7 +8,7 @@ import ExMaybe
 -- * Nobody
 -- * Just that guy
 firstThat :: (a -> Bool) -> [a] -> Maybe a
-firstThat p = listToMaybe . filter p
+firstThat p = safeHead . filter p
 
 isMaybeGood :: (a -> Bool) -> Maybe a -> Maybe Bool
 isMaybeGood p Nothing = Nothing
