@@ -162,7 +162,6 @@ replicate n x
 zip :: [a] -> [b] -> [(a, b)]
 zip (x : xs) (y : ys) = (x, y) : zip xs ys
 zip _ _ = []
-
 -- zipWith
 
 -- intercalate
@@ -188,5 +187,9 @@ See below for examples of palindromes:
 "Was it a car or a cat I saw?"
 "Doc, note I dissent.  A fast never prevents a fatness.  I diet on cod."
 -}
+
 palindrome :: String -> Bool
-palindrome s = s == reverse s
+palindrome s = reverse s' == s'
+    where
+        s' = filter isLetter $ map C.toUpper s
+        isLetter c = c `elem` (['a'..'z'] ++ ['A'..'Z'])
