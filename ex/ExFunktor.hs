@@ -15,12 +15,12 @@ instance Funktor Maybe where
     fmap f (Just x) = Just (f x)
     fmap _ _ = Nothing
 
--- what about Either?
+instance Funktor (Either a) where
+    fmap f (Left e) = Left e
+    fmap f (Right x) = Right (f x)
 
--- what about pairs?
+instance Funktor ((->) a) where
+    fmap = (.)
 
--- what about functions?
-
--- what about Trees?
-
--- ...define Functor instances of as many * -> * things as you can think of!
+instance Funktor ((,) a) where
+    fmap f (e,x) = (e, f x)
