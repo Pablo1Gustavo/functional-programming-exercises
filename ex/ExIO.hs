@@ -12,8 +12,17 @@ import Prelude hiding
 -- read through the whole module first, to get an idea
 -- of what's required and to decide where to start
 
+isEOL :: Char -> Bool
+isEOL = (==) '\n'
+
 getLine :: IO String
-getLine = undefined
+getLine = do 
+    c <- getChar
+    if isEOL c
+    then return ""
+    else do 
+        s <- getLine
+        return $ c:s
 
 getInt :: IO Int
 getInt = undefined
