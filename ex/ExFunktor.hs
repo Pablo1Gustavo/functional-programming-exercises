@@ -23,4 +23,4 @@ instance Funktor ((->) a) where
     fmap = (.)
 
 instance Funktor ((,) a) where
-    fmap f (e,x) = (e, f x)
+    fmap f (l,r) = (l, f r)
