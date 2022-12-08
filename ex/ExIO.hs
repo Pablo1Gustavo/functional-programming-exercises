@@ -18,17 +18,26 @@ isEOL = (==) '\n'
 getLine :: IO String
 getLine = do 
     c <- getChar
-    if isEOL c
-    then return ""
+    if isEOL c then
+        return ""
     else do 
         s <- getLine
         return $ c:s
 
 getInt :: IO Int
-getInt = undefined
+getInt = do
+    n <- getLine
+    return $ read n
 
 getSafeInt :: IO (Maybe Int)
-getSafeInt = undefined
+getSafeInt =  do
+    s <- getLine
+    let cs = reads s :: [(Int,String)]
+    if null cs then
+        return Nothing
+    else do
+        let (n,_) = head cs
+        return $ Just n
 
 -- sequencing: first do f ignoring its result, then do g and keep its result
 infixl 1 >>
