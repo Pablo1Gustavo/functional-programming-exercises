@@ -41,7 +41,7 @@ infixl 1 >>
 
 (>>) :: IO a -> IO b -> IO b
 (>>) io' io = do
-    io'; ioz
+    io'; io
 
 -- pauses till the user presses any normal key
 pause :: IO ()
@@ -74,7 +74,9 @@ putCharLn = lnize putChar
 
 -- reads the entire user input as a single string, transforms it, and prints it
 interact :: (String -> String) -> IO ()
-interact = undefined
+interact f = do
+    s <- getLine
+    putStr (f s)
 
 perlineize :: (String -> String) -> (String -> String)
 perlineize f = unlines . map f . lines
