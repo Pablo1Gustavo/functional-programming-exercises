@@ -33,11 +33,9 @@ getSafeInt :: IO (Maybe Int)
 getSafeInt =  do
     s <- getLine
     let cs = reads s :: [(Int,String)]
-    if null cs then
-        return Nothing
-    else do
-        let (n,_) = head cs
-        return $ Just n
+    case cs of
+        [(n,_)] -> return $ Just n
+        _       -> return Nothing
 
 -- sequencing: first do f ignoring its result, then do g and keep its result
 infixl 1 >>
