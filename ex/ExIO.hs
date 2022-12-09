@@ -53,16 +53,18 @@ skip :: IO ()
 skip = return ()
 
 newline :: IO ()
-newline = undefined
+newline = putChar '\n'
 
--- define it as a foldr
 putStr :: String -> IO ()
-putStr = undefined
+putStr = foldr ((>>) . putChar) skip
 
 -- transform f into one "just like f" except that it prints a newline
 -- after any side-effects f may had
 lnize :: (a -> IO b) -> a -> IO b
-lnize f = undefined
+lnize f x = do
+    x' <- f x
+    newline
+    return x'
 
 putStrLn :: String -> IO ()
 putStrLn = lnize putStr
