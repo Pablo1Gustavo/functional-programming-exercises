@@ -193,8 +193,10 @@ See below for examples of palindromes:
 "Doc, note I dissent.  A fast never prevents a fatness.  I diet on cod."
 -}
 
+upperLetters :: String
+upperLetters = ['A'..'Z']
+
 palindrome :: String -> Bool
 palindrome s = reverse s' == s'
     where
-        s' = filter isLetter $ map C.toUpper s
-        isLetter c = c `elem` (['a'..'z'] ++ ['A'..'Z'])
+        s' = filter (`elem` upperLetters) (map C.toUpper s)
