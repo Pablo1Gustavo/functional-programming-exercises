@@ -37,18 +37,20 @@ getSafeInt =  do
         [(n,_)] -> return $ Just n
         _       -> return Nothing
 
--- sequencing: first do f ignoring its result, then do g and keep its result
 infixl 1 >>
 
 (>>) :: IO a -> IO b -> IO b
-ax >> ay = undefined
+(>>) io' io = do
+    io'; ioz
 
 -- pauses till the user presses any normal key
 pause :: IO ()
-pause = undefined
+pause = do
+    getChar
+    return ()
 
 skip :: IO ()
-skip = undefined
+skip = return ()
 
 newline :: IO ()
 newline = undefined
