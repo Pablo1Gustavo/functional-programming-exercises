@@ -162,14 +162,19 @@ replicate n x
 zip :: [a] -> [b] -> [(a, b)]
 zip (x : xs) (y : ys) = (x, y) : zip xs ys
 zip _ _ = []
--- zipWith
+
+zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith f (x:xs) (y:ys) = (f x y) : zipWith f xs ys
+zipWith _ _ _ = []
 
 -- intercalate
 -- nub
 
--- splitAt
--- what is the problem with the following?:
--- splitAt n xs  =  (take n xs, drop n xs)
+splitAt :: Integral x => x -> [a] -> ([a],[a])
+splitAt 0 xs = ([],xs)
+splitAt n (x:xs) = (x:ls, rs)
+    where
+        (ls,rs) = splitAt (n - 1) xs
 
 -- break
 
