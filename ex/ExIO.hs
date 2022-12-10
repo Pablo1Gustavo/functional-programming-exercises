@@ -159,16 +159,24 @@ zipWithIO_ :: (a -> b -> IO c) -> [a] -> [b] -> IO ()
 zipWithIO_ = undefined
 
 sequenceIO :: [IO a] -> IO [a]
-sequenceIO = undefined
+sequenceIO [] = return []
+sequenceIO (ax:axs) = do
+    x <- ax
+    xs <- sequenceIO axs
+    return $ x:xs
 
 sequenceIO_ :: [IO a] -> IO ()
-sequenceIO_ = undefined
+sequenceIO_ = void . sequenceIO
 
 replicateIO :: Integral i => i -> IO a -> IO [a]
-replicateIO = undefined
+replicateIO 0 _ = return []
+replicateIO n ax = do
+    x <- ax
+    ax' <- replicateIO (n - 1) ax
+    return $ x : ax'
 
-replicateIO_ :: Integral i => i -> IO a -> IO [a]
-replicateIO_ = undefined
+replicateIO_ :: Integral i => i -> IO a -> IO ()
+replicateIO_ n = void . replicateIO n
 
 forIO :: [a] -> (a -> IO b) -> IO [b]
 forIO = undefined
