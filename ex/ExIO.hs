@@ -123,7 +123,10 @@ infixr 1 >=>, <=<
 infixl 1 >>=
 
 (>>=) :: IO a -> (a -> IO b) -> IO b
-ax >>= f = undefined
+(>>=) ax f = do
+    x <- ax
+    y <- f x
+    return y
 
 
 infixl 4 $>, <$
@@ -131,11 +134,13 @@ infixl 4 $>, <$
 -- make an action that has the side effects of the action on the left
 -- but with result the value on the right
 ($>) :: IO a -> b -> IO b
-ax $> y = undefined
+($>) a x = do
+    a
+    return x
 
 -- vice-versa
 (<$) :: a -> IO b -> IO a
-x <$ ioy = undefined
+(<$) = flip ($>)
 
 ap :: IO (a -> b) -> IO a -> IO b
 af `ap` ax = undefined
@@ -191,5 +196,3 @@ foldlIO = undefined
 
 foldlIO_ :: (b -> a -> IO b) -> b -> [a] -> IO ()
 foldlIO_ = undefined
-
-
