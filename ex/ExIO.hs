@@ -40,8 +40,8 @@ getSafeInt =  do
 infixl 1 >>
 
 (>>) :: IO a -> IO b -> IO b
-(>>) io' io = do
-    io'; io
+(>>) ax ay = do
+    ax; ay
 
 -- pauses till the user presses any normal key
 pause :: IO ()
@@ -62,9 +62,9 @@ putStr = foldr ((>>) . putChar) skip
 -- after any side-effects f may had
 lnize :: (a -> IO b) -> a -> IO b
 lnize f x = do
-    x' <- f x
+    ax <- f x
     newline
-    return x'
+    return ax
 
 putStrLn :: String -> IO ()
 putStrLn = lnize putStr
@@ -85,8 +85,8 @@ interactPerLine :: (String -> String) -> IO ()
 interactPerLine = interact . perlineize
 
 when :: Bool -> IO () -> IO ()
-when p io
-    | p = io
+when p a
+    | p = a
     | otherwise = skip
 
 unless :: Bool -> IO () -> IO ()
@@ -96,12 +96,11 @@ guard :: Bool -> IO ()
 guard = undefined
 
 forever :: IO a -> IO b
-forever = undefined
+forever a = a >> forever a
 
 -- transforms the action given to an equivalent one that has no result
 void :: IO a -> IO ()
-void io = io >> skip
-
+void = (>> skip)
 
 -- Kleisli compositions
 infixr 1 >=>, <=<
