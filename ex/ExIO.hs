@@ -149,13 +149,13 @@ iomap f ax = do
     return $ f x
 
 mapIO :: (a -> IO b) -> [a] -> IO [b]
-mapIO = undefined
+mapIO f = sequenceIO . map f
 
 zipWithIO :: (a -> b -> IO c) -> [a] -> [b] -> IO [c]
-zipWithIO = undefined
+zipWithIO f xs = sequenceIO . zipWith f xs
 
 zipWithIO_ :: (a -> b -> IO c) -> [a] -> [b] -> IO ()
-zipWithIO_ = undefined
+zipWithIO_ f xs = void . zipWithIO f xs
 
 sequenceIO :: [IO a] -> IO [a]
 sequenceIO [] = return []
