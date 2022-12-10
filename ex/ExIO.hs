@@ -85,7 +85,9 @@ interactPerLine :: (String -> String) -> IO ()
 interactPerLine = interact . perlineize
 
 when :: Bool -> IO () -> IO ()
-when = undefined
+when p io
+    | p = io
+    | otherwise = skip
 
 unless :: Bool -> IO () -> IO ()
 unless = undefined
@@ -98,7 +100,7 @@ forever = undefined
 
 -- transforms the action given to an equivalent one that has no result
 void :: IO a -> IO ()
-void = undefined
+void io = io >> skip
 
 
 -- Kleisli compositions
