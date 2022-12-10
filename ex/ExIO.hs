@@ -108,7 +108,9 @@ infixr 1 >=>, <=<
 
 -- diagrammatic order
 (>=>) :: (a -> IO b) -> (b -> IO c) -> (a -> IO c)
-f >=> g = undefined
+(>=>) f g x = do
+    ax <- f x
+    g ax 
 
 -- traditional order
 -- comparison of types:
@@ -143,7 +145,9 @@ filterIO :: (a -> IO Bool) -> [a] -> IO [a]
 filterIO = undefined
 
 iomap :: (a -> b) -> IO a -> IO b
-iomap = undefined
+iomap f ax = do
+    x <- ax
+    return $ f x
 
 mapIO :: (a -> IO b) -> [a] -> IO [b]
 mapIO = undefined
